@@ -1,7 +1,3 @@
-<div align="right">
-<img width="32px" src="img/algo2.svg">
-</div>
-
 # TP2: Aplicando los conocimientos adquiridos
 
 Para este TP se piden 3 cosas:
