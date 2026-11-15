@@ -10,6 +10,7 @@
   * [1.1. Compilar el proyecto](#11-Compilar-el-proyecto)
   * [1.2. Ejecutar las pruebas](#12-Ejecutar-las-pruebas)
   * [1.3. Ejecutar el programa con Valgrind](#13-Ejecutar-el-programa-con-Valgrind)
+  * [1.4. Ejecutar el programa](#14-Ejecutar-el-programa)
 * [2. Funcionamiento](#2-Funcionamiento)
 * [3. Estructura](#3-Estructura)
   * [3.1. Diagrama de memoria](#31-Diagrama-de-memoria)
@@ -34,21 +35,86 @@ make pruebas
 make valgrind-demo
 ```
 
+### 1.4. Ejecutar el programa
+
+Una vez compilado el proyecto, el programa recibe por parámetro el archivo `.csv` con los pokemon y, opcionalmente, un puerto:
+
+```bash
+./demo pokedex.csv        # modo consola
+./demo pokedex.csv 8080   # modo gráfico en el puerto 8080
+```
+
 ## 2. Funcionamiento
-Explicar **qué** hace el TP implementado, aclarando todas las decisiones de funcionamiento que no estaban definidas por el enunciado. Se deben incluir todos los diagramas que consideren necesarios para explicar el funcionamiento del programa.
 
-> [!IMPORTANT]
-> Es muy importante entender la *diferencia entre qué y cómo*. En esta sección **NO** se busca una explicación de cómo implementaste el programa, qué funciones usaste, en qué línea, etc.; se busca una explicación de **qué** es lo que hace el programa en líneas generales. 
+El programa recibe por parámetro el archivo `.csv` con los pokemon y, opcionalmente, un puerto: si se omite, se ejecuta en **modo consola**; si se indica el puerto, en **modo gráfico**.
 
-> [!WARNING]
-> Es importante usar diagramas para explicar los conceptos de forma clara, pero el exceso será negativo. Los diagramas deben tener un fin explicativo y, por lo general, sirven para reemplazar uno o múltiples párrafos de explicación.
+#### Carga de la Pokédex
 
-## 2. Funcionamiento (EJEMPLO)
-El programa recibe 7 números del usuario y una vez obtenidos todos los muestra en pantalla. Para esto define un vector estático de 7 elementos y llena el mismo con los datos que inserta el usuario; cuando termina de insertar todos los números procede a imprimirlos en pantalla.
-<div align="center">
-  <img src="img/diagrama_flujo_programa.svg" width="70%">
-  <p>Diagrama de flujo del programa explicado con más detalle.</p>
-</div>
+Cada línea del archivo describe un pokemon con su nombre, velocidad, peso y rareza (común, rara o legendaria). Al cargarlo:
+
+- Las líneas inválidas se ignoran y se continúa con el resto del archivo.
+
+- Si hay pokemon repetidos se conserva solamente el primero. Dos nombres se consideran iguales sin distinguir mayúsculas de minúsculas, por lo que `pikachu`, `Pikachu` y `PIKACHU` son el mismo pokemon.
+
+- Si la cantidad de argumentos es incorrecta o el archivo no puede leerse, el programa informa el error por pantalla y finaliza sin mostrar el menú.
+
+#### Menú principal
+
+Una vez cargada la Pokédex se muestra un menú con las mismas cinco opciones en ambos modos. Cada opción se elige con su letra, sin distinguir mayúsculas de minúsculas:
+
+| Opción | Qué hace |
+|--------|----------|
+| **J** - Jugar | Inicia el juego de memoria (únicamente en el modo de juego gráfico)|
+| **S** - Jugar con semilla | Pide una semilla para el generador de números aleatorios e inicia el juego, de modo que una misma semilla reproduce la misma partida (únicamente en el modo de juego gráfico)|
+| **M** - Mostrar pokemon | Pide un nombre de pokemon y, si existe, muestra sus datos. |
+| **I** - Mostrar informacion | Muestra un resumen de la Pokédex. |
+| **Q** - Salir | Finaliza el programa. |
+
+Después de ejecutar cualquier opción, excepto la de salir, el programa vuelve a solicitar una opcion.
+
+#### Modo consola
+
+- **Jugar** y **Jugar con semilla** solo informan que el juego se puede ejecutar únicamente en modo gráfico y vuelven al menú.
+
+- **Mostrar pokemon** busca el nombre ingresado. Si no está en la Pokédex, muestra el mensaje `Pokemon no encontrado.`.
+
+- **Mostrar informacion** muestra la cantidad total de pokemon, la cantidad de cada rareza y el pokemon más y menos veloz y más y menos pesado, con su valor.
+
+- Si se ingresa algo que no sea una opción existente del menú, se avisa del error y se vuelve a mostrar el menú solicitando una nueva respuesta. 
+
+#### Modo gráfico
+
+El modo gráfico se visualiza desde el navegador y se maneja con el teclado. Las opciones del menú se eligen presionando su letra.
+
+- **Mostrar pokemon** y **Mostrar informacion** muestran en la ventana lo mismo que en el modo consola. Para buscar un pokemon se escribe su nombre (sin límite de largo) y se confirma con ENTER. Con ENTER también se vuelve al menú.
+
+- **Jugar** inicia una partida con una semilla al azar y **Jugar con semilla** pide escribir la semilla antes de empezar.
+
+Una partida se desarrolla en los siguientes pasos:
+
+1) **Introducción:** una pantalla explica cómo se juega y cómo distinguir las rarezas de los pokemon. Se continúa con ENTER.
+
+2) **Dificultad:** el jugador elige entre **fácil** (4 pokemon), **media** (8) o **difícil** (12). Si la Pokédex tiene menos pokemon que los necesarios para la dificultad elegida, se informa el error y se vuelve al menú.
+
+3) **Observación:** los pokemon, elegidos al azar sin repetirse, cruzan la pantalla, algunos de izquierda a derecha y otros de derecha a izquierda. Sobre cada uno aparece una letra que indica su rareza: **[C]** en verde para común, **[R]** en azul para raro y **[L]** en amarillo para legendario. Abajo se muestra la semilla de la partida.
+
+4) **Cuestionario:** cuando todos los pokemon cruzaron, se hacen 3 preguntas distintas elegidas al azar de un pool de 6: cuántos pokemon se vieron en total, cuántos fueron comunes, raros y legendarios, y cuántos cruzaron de derecha a izquierda y de izquierda a derecha. Cada pregunta tiene 3 opciones numeradas y una sola es correcta, que se elige con las teclas **1**, **2** o **3**.
+
+5) **Resultados:** se muestra la cantidad de aciertos y las respuestas correctas de todas las preguntas del pool, se hayan hecho o no. Con ENTER se vuelve al menú.
+
+La **semilla** permite reproducir una partida: con la misma semilla se obtienen los mismos pokemon, los mismos recorridos y las mismas preguntas.
+
+#### Diagramas de flujo
+
+El siguiente diagrama muestra el flujo general del programa. A la izquierda se ve la etapa de inicio: se validan los parámetros, se carga la Pokédex desde el archivo, se crea el menú y se elige el modo de ejecución (consola o gráfico), según se haya indicado o no un puerto. A la derecha se ve el menú principal, común a ambos modos: se lee la opción elegida, se valida y se ejecuta, y luego se vuelve al menú hasta que el usuario decide salir.
+
+Cabe aclarar que, en modo consola, las opciones **J** y **S** solo informan que el juego se puede ejecutar únicamente en modo gráfico.
+
+![Funcionamiento del main](img/diagrama_flujo_programa.svg)
+
+El siguiente diagrama muestra el flujo de una partida, que se inicia con las opciones **J** o **S** del modo gráfico. A la izquierda se ve la preparación: se define la semilla, se muestra la introducción, se elige la dificultad y se verifica que la Pokédex tenga pokemon suficientes, informando el error y volviendo al menú en caso contrario. A la derecha se ve la partida: los pokemon cruzan la pantalla, luego se hacen las preguntas de a una sumando un acierto por cada respuesta correcta y, al terminar, se muestran los resultados y se vuelve al menú.
+
+![Funcionamiento del juego](img/diagrama_flujo_juego.svg)
 
 ## 3. Estructura
 
@@ -70,20 +136,36 @@ Struct `menu` encapsula el TDA Menú y cuenta con el campo `lista_t *opciones`, 
 Struct `opcion` representa cada comando disponible dentro del menú mediante tres campos: `char clave` (el carácter identificador normalizado en mayúscula para ejecutar la opción por teclado), `char* descripcion` (puntero a una copia en memoria dinámica del texto descriptivo de la opción) y `menu_accion_t accion` (puntero a la función callback `bool (*)(void *)` que ejecuta la lógica correspondiente al seleccionar dicha opción).
 
 #### Struct `lista` (`lista_t`):
-Struct `lista` es la estructura utilizada internamente por el menú para almacenar cada opción con su respectiva información. Dispone de tres campos: `nodo_t *inicio` (puntero al primer nodo para iniciar recorridos), `nodo_t *final` (puntero al último nodo, cuya utilidad es permitir inserciones al final de la lista en tiempo constante O(1)) y `size_t cantidad` (contador de elementos para conocer el largo de la lista en O(1)). 
+Struct `lista` es la estructura utilizada internamente por el menú para almacenar cada opción con su respectiva información. Dispone de tres campos: `nodo_t *nodo_inicio` (puntero al primer nodo para iniciar recorridos), `nodo_t *nodo_final` (puntero al último nodo, cuya utilidad es permitir inserciones al final de la lista en tiempo constante O(1)) y `size_t cantidad` (contador de elementos para conocer el largo de la lista en O(1)). 
 
 #### Struct `nodo` (`nodo_t`):
 Struct `nodo` conforma cada eslabón de la lista mediante dos campos: `void *dato` (puntero genérico que en el contexto del menú apunta a un `struct opcion`) y `struct nodo *siguiente` (puntero al próximo nodo de la secuencia).
 
 ### 3.1. Diagrama de memoria
-Realizar un diagrama de memoria de la estructura de memoria durante la ejecución del programa, esto debe incluir el stack y el heap con las estructuras contenidas en ellos.
 
-### 3.1 Diagrama de memoria (EJEMPLO)
-<div align="center">
-  <img src="img/diagrama_memoria__1.svg" width="70%">
-  <p>Diagrama de memoria de la estructura.</p>
-</div>
+#### Estructura del abb
 
+El diagrama muestra cómo queda el `tp1_t` con tres pokemon cargados. `tp1` apunta a un `struct tp1`, que apunta al `struct abb`, y este guarda el `tamanio` y un puntero a `nodo_raiz`. La raíz es el nodo de Pikachu: de su puntero `izquierda` cuelga el nodo de Charizard, cuyo nombre es alfabéticamente menor, y de su puntero `derecha` el de Snorlax, cuyo nombre es mayor. Como estos dos nodos no tienen hijos, sus punteros `izquierda` y `derecha` apuntan a `NULL`. El comparador del árbol, `comparar_pokemones()`, es una función ubicada en el código del programa.
+
+![Diagrama de memoria de abb](img/diagrama_memoria_abb_completo.svg)
+
+#### Almacenamiento de un pokemon
+
+El diagrama amplía cómo se guarda un pokemon, tomando como ejemplo el de Pikachu. El nodo del árbol apunta mediante `elemento` a un `struct pokemon`, que guarda la `velocidad`, el `peso` y la `rareza`. El nombre no está dentro del struct: `nombre` es un puntero a una cadena de caracteres aparte en el heap, terminada en `\0`.
+
+![Diagrama de memoria de pokemon](img/diagrama_memoria_abb_pokemon.svg)
+
+#### Estructura del menú
+
+El diagrama muestra cómo queda el `menu_t` con las cinco opciones cargadas. `menu` apunta a un `struct menu`, que apunta a la `struct lista`. Desde ahí, `inicio` señala el primer nodo y `final` el último, y los nodos están encadenados mediante `siguiente`. Cada nodo apunta, a través de `dato`, a un `struct opcion`, identificado en el diagrama por su `clave`.
+
+![Diagrama de memoria de TDA menu con sus respectivas opciones](img/diagrama_memoria_menu_completo.svg)
+
+#### Detalle de una opción
+
+El diagrama amplía la primera opción (**J**). El nodo apunta a su `struct opcion`, que guarda la `clave` y dos punteros: `descripcion`, que apunta a la cadena `"Jugar"` en el heap, y `accion`, que apunta a la función `accion_jugar()`, ubicada en el código del programa. Las demás opciones tienen la misma forma.
+
+![Diagrama de memoria de una opcion del TDA menú detallada](img/diagrama_memoria_menu_opcion.svg)
 
 ### 3.2. Análisis de complejidades
 
@@ -136,6 +218,7 @@ Tiene una complejidad de **O(1)** ya que recibe el puntero al menú e invoca a `
 #### `menu_destruir`:
 Tiene una complejidad de **O(n)** ya que delega la liberación en `lista_destruir_todo` junto con el destructor `opcion_destruir`, recorriendo los n nodos de la lista de forma secuencial y liberando la descripción, la estructura `struct opcion` y el nodo en O(1) por cada elemento. 
 
+
 ## 4. Decisiones de diseño y/o complejidades de implementación
 
 #### Elección del ABB para el almacenamiento de pokemones (`tp1`)
@@ -167,7 +250,7 @@ Al copiar los pokemones de los árboles originales hacia el nuevo árbol destino
 - **Descripciones copiadas:** el menú guarda una copia propia de cada descripción, para no depender de la vida útil de la cadena que se le pasa.
 
 - **Valor de retorno de las acciones:** cada acción devuelve un `bool` que indica si el programa debe continuar (`true`) o finalizar (`false`). Una clave o índice inexistente no es un error y se ignora devolviendo `true`, para que una tecla equivocada no cierre el juego.
-La única función que devuelve `false` es salir(Q), para finalizar el programa.
+La única función que devuelve `false` es la de salir (**Q**), para finalizar el programa.
 
 #### Separación entre lógica e interfaces
 
@@ -175,14 +258,29 @@ La lógica del TP vive en los TDAs (`tp1`, `abb`, `lista`, `menu`), y cada inter
 
 #### Modo gráfico
 
-El engine invoca una función por cada frame y borra la pantalla entre frames, por lo que no se puede "dibujar una vez y esperar". Por eso la interfaz gráfica se resolvió como una máquina de estados (menú, ingreso de texto, mensaje, elección de dificultad, juego y cuestionario), donde cada frame dibuja la pantalla del estado actual y procesa la entrada. Decisiones propias del juego:
+El engine invoca una función por cada frame y borra la pantalla entre frames, por lo que no se puede "dibujar una vez y esperar". Por eso la interfaz gráfica se resolvió como una **máquina de estados**: `struct juego` guarda el modo actual (menú, ingreso de texto, información, pokemon encontrado, introducción, dificultad, sin pokemon suficientes, juego, pregunta y resultados) y en cada frame se dibuja la pantalla de ese modo y se procesa la entrada. Las pantallas que solo muestran datos y se cierran con ENTER se agruparon en una única función (`frame_informativa`).
+
+Decisiones propias del juego:
 
 - **Dificultad:** el jugador elige entre 4, 8 o 12 pokemon. El máximo de 12 surge del límite de 16 sprites por frame que tiene el engine.
-- **Pokemon en pantalla:** se sortean entre los de la pokedex y cruzan la pantalla en zigzag, de izquierda a derecha o al revés, entrando de forma escalonada. Su velocidad depende de la velocidad del pokemon (`1 + velocidad / 40` píxeles por frame). Como el archivo de sprites solo trae 4 formas, la forma se asigna con `posición % 4`, por lo que puede haber formas repetidas.
-- **Rareza:** como los sprites no cambian de color, cada pokemon lleva debajo una estrella cuyo color indica su rareza (gris común, azul raro, amarillo legendario).
-- **Semilla:** la opción "Jugar con semilla" usa `srand` con el valor ingresado, lo que permite reproducir una misma partida. Sin semilla se usa la hora actual.
-- **Cuestionario:** las respuestas son numéricas, y la correcta aparece en una posición al azar entre las 3 opciones. <!-- ACTUALIZAR mañana: pool de preguntas -->
-- **Menú:** <!-- ACTUALIZAR mañana: navegación con flechas/ENTER si se agrega -->
+
+- **Elección de pokemon sin repetir:** se recorre la Pokédex una única vez en INORDEN con `tp1_iterar` y cada pokemon se elige con probabilidad *(cantidad que faltan elegir) / (cantidad que faltan recorrer)*. De esta forma se obtiene un subconjunto al azar sin pokemon repetidos, sin reintentar sorteos y sin guardar los índices ya elegidos. Además, permite saber de antemano si la Pokédex alcanza para la dificultad elegida.
+
+- **Pokemon en pantalla:** se guardan en una `lista_t` y se recorren con `lista_iterar` en cada frame, tanto para moverlos como para dibujarlos.
+
+- **Movimiento:** cada pokemon cruza la pantalla en zigzag, de izquierda a derecha o al revés, y entran de forma escalonada (cada uno empieza 30 píxeles más lejos que el anterior). Su velocidad depende de la velocidad del pokemon (`1 + velocidad / 40` píxeles por frame). Como el archivo de sprites solo trae 4 formas, la forma se asigna con `posición % 4`, por lo que puede haber formas repetidas.
+
+- **Rareza:** como los sprites no cambian de color, sobre cada pokemon se dibuja una letra (**[C]**, **[R]** o **[L]**) cuyo color indica su rareza (verde común, azul raro y amarillo legendario).
+
+- **Semilla:** `srand` se invoca recién al iniciar la partida, una vez elegida la dificultad, de modo que todo lo aleatorio de la partida (pokemon, sentido y altura de cada recorrido, preguntas y posición de la opción correcta) dependa únicamente de la semilla. Con la opción **J** se utiliza la hora actual.
+
+- **Cuestionario:** las respuestas se calculan con `struct estadisticas`, que se actualiza al crear cada pokemon. De las 6 preguntas posibles se hacen 3: se sortea una pregunta inicial y un salto de 1 o 2 posiciones, lo que garantiza que no se repitan. La opción correcta se ubica al azar entre las 3 y las otras dos son los dos valores siguientes.
+
+- **Texto ingresado sin límite de largo:** lo que escribe el usuario (semilla o nombre) se guarda en un string dinámico que se agranda con `realloc` de a 16 caracteres a medida que hace falta. La semilla se convierte con `strtoul`.
+
+- **Menú por letra:** el menú gráfico ejecuta las opciones únicamente mediante su letra (`menu_ejecutar_clave`), sin navegación con cursor.
+
+- **Manejo de errores:** si falla alguna reserva de memoria al preparar la partida, se vuelve al menú sin finalizar el programa.
 
 
 ## 5. Respuestas a las preguntas teóricas
@@ -220,15 +318,17 @@ Por último se agregó el chequeo de que la cantidad de pokemones escritos sea i
 
 ### 5.2 Explique cómo funciona el menú y cómo abstrae el problema de la independencia de la interfaz gráfica.
 
-El TDA Menú funciona como un **despachador de comandos** (command dispatcher) que almacena internamente una lista enlazada de opciones (`struct opcion`), donde cada opción vincula una clave alfanumérica (`char clave`), un texto descriptivo (`char *descripcion`) y un puntero a función (`menu_accion_t accion`).
+El TDA Menú guarda una lista de **opciones**, cada una con tres datos: una **clave** (un carácter que se normaliza a mayúscula), una **descripción** (una copia propia del texto) y una **acción** (un puntero a función `menu_accion_t`, es decir, `bool (*)(void *contexto)`). Con eso ofrece pocas operaciones: registrar una opción (`menu_agregar_opcion`, que rechaza las claves repetidas), ejecutarla por su clave (`menu_ejecutar_clave`) o por su posición (`menu_ejecutar_indice`), y recorrer todas las opciones (`menu_con_cada_opcion`). Al ejecutar una opción, el menú invoca su acción y devuelve lo que esta devuelve: `true` para que el programa continúe o `false` para que finalice. Si la clave o el índice no existen, no hace nada y devuelve `true`.
 
-La abstracción respecto a la interfaz de usuario (permitiendo que el mismo menú funcione de manera idéntica tanto en modo consola como en la interfaz gráfica provista por `engine.h`) se logra mediante tres mecanismos de diseño:
+Para que el menú sea independiente de la interfaz, **el TDA nunca imprime, dibuja ni lee nada del usuario**: solo conoce claves, textos y funciones. Todo lo que depende de la interfaz queda a cargo de quien lo usa, de tres maneras:
 
-1) **Inversión de control en la visualización** (`menu_con_cada_opcion`): El TDA Menú no incluye llamadas a `printf` ni a funciones de dibujado como `engine_texto`. En su lugar, expone el iterador interno `menu_con_cada_opcion`, el cual recorre las opciones y le entrega a una función callback externa la clave, la descripción y el índice de cada ítem. Así, el modo consola simplemente le pasa un callback que imprime por terminal, mientras que el modo gráfico le pasa un callback que renderiza cada renglón en la ventana y resalta el cursor actual, sin que el menú conozca qué interfaz lo está dibujando.
+1) **Cómo se muestran las opciones.** `menu_con_cada_opcion` entrega a un callback (`menu_iterador_t`) la clave, la descripción y el índice de cada opción. La consola le pasa un callback que las imprime con `printf` (`imprimir_opcion_consola`) y el modo gráfico dibuja cada renglón con el engine (`dibujar_opcion`). El menú no sabe cuál de los dos lo está usando.
 
-2) **Doble vía de ejecución** (`menu_ejecutar_clave` y `menu_ejecutar_indice`): La consola opera habitualmente leyendo un carácter ingresado por el usuario y ejecutándolo mediante `menu_ejecutar_clave`, mientras que la interfaz gráfica permite tanto presionar la letra del atajo como desplazarse con las flechas arriba/abajo y confirmar con ENTER invocando a `menu_ejecutar_indice` con la posición seleccionada.
+2) **Cómo se elige una opción.** Cada interfaz traduce lo que hace el usuario a una clave: la consola lee la línea escrita y el modo gráfico detecta la tecla presionada. En ambos casos el resultado es el mismo llamado: `menu_ejecutar_clave(menu, clave, contexto)`. La ejecución por posición (`menu_ejecutar_indice`) queda disponible para interfaces que permitan seleccionar con un cursor.
 
-3) **Contexto polimórfico** (`void *contexto`): Al ejecutarse cualquier opción, el menú invoca al callback `accion(contexto)` pasándole un puntero genérico al estado de la aplicación y devuelve un booleano que indica si el programa debe seguir corriendo o finalizar (por ejemplo, al elegir la opción Q de Salir). De este modo, el menú queda totalmente desacoplado de las estructuras del juego y del motor gráfico.
+3) **Qué hace cada opción.** Las acciones las registra cada interfaz con sus propias funciones y reciben un `void *contexto` con el estado que necesiten (la Pokédex en la consola y el `struct juego` en el modo gráfico). Por eso la opción **M** tiene la misma clave y descripción en los dos modos, pero en la consola ejecuta `accion_mostrar_pokemon` (imprime los datos con `printf`) y en el modo gráfico `accion_mostrar` (cambia la pantalla que se dibuja).
+
+Gracias a esto, el mismo TDA funciona sin modificarse con ambas interfaces, y agregar una nueva solo requiere proveer un callback para mostrar las opciones, traducir la entrada a una clave y registrar sus acciones.
 
 ### 5.3 En general, explique qué estructuras de las implementadas fueron utilizadas para implementar la lógica del TP2 y por qué.
 
@@ -257,4 +357,4 @@ La contrapartida es que la eficiencia depende de la forma del árbol. En promedi
 
 - Crece **dinámicamente**, así que no hay un máximo de opciones.
 
-Además, ambas estructuras quedan **encapsuladas** dentro de `struct tp1` y `struct menu`, y se las usa solo a través de sus funciones públicas. Por eso `main.c` y las interfaces (consola y gráfica) no saben qué hay adentro.
+Además, ambas estructuras quedan **encapsuladas** dentro de `struct tp1` y `struct menu`, y se las usa solo a través de sus funciones públicas. Por eso `main.c` y las interfaces (consola y gráfica) no saben qué hay dentro.

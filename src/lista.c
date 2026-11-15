@@ -9,17 +9,17 @@
 
 typedef struct nodo {
 	void *dato;
-	struct nodo *siguiente;
+	struct nodo *siguiente_nodo;
 } nodo_t;
 
 struct lista {
-	nodo_t *inicio;
-	nodo_t *final;
+	nodo_t *nodo_inicio;
+	nodo_t *nodo_final;
 	size_t cantidad;
 };
 
 struct lista_iterador {
-	nodo_t *actual;
+	nodo_t *nodo_actual;
 };
 
 /*
@@ -30,9 +30,9 @@ struct lista_iterador {
  */
 nodo_t *obtener_nodo(lista_t *lista, size_t posicion)
 {
-	nodo_t *nodo_actual = lista->inicio;
+	nodo_t *nodo_actual = lista->nodo_inicio;
 	for (size_t i = 0; i < posicion; i++) {
-		nodo_actual = nodo_actual->siguiente;
+		nodo_actual = nodo_actual->siguiente_nodo;
 	}
 	return nodo_actual;
 }
@@ -44,8 +44,8 @@ nodo_t *obtener_nodo(lista_t *lista, size_t posicion)
  */
 void insertar_al_principio(lista_t *lista, nodo_t *nodo_nuevo)
 {
-	nodo_nuevo->siguiente = lista->inicio;
-	lista->inicio = nodo_nuevo;
+	nodo_nuevo->siguiente_nodo = lista->nodo_inicio;
+	lista->nodo_inicio = nodo_nuevo;
 }
 
 /*
@@ -55,9 +55,9 @@ void insertar_al_principio(lista_t *lista, nodo_t *nodo_nuevo)
  */
 void insertar_final(lista_t *lista, nodo_t *nodo_nuevo)
 {
-	lista->final->siguiente = nodo_nuevo;
-	nodo_nuevo->siguiente = NULL;
-	lista->final = nodo_nuevo;
+	lista->nodo_final->siguiente_nodo = nodo_nuevo;
+	nodo_nuevo->siguiente_nodo = NULL;
+	lista->nodo_final = nodo_nuevo;
 }
 
 /*
@@ -68,8 +68,8 @@ void insertar_final(lista_t *lista, nodo_t *nodo_nuevo)
 void insertar_en_posicion(lista_t *lista, nodo_t *nodo_nuevo, size_t posicion)
 {
 	nodo_t *nodo_anterior = obtener_nodo(lista, posicion - 1);
-	nodo_nuevo->siguiente = nodo_anterior->siguiente;
-	nodo_anterior->siguiente = nodo_nuevo;
+	nodo_nuevo->siguiente_nodo = nodo_anterior->siguiente_nodo;
+	nodo_anterior->siguiente_nodo = nodo_nuevo;
 }
 
 /*
@@ -80,12 +80,12 @@ void insertar_en_posicion(lista_t *lista, nodo_t *nodo_nuevo, size_t posicion)
  */
 void *eliminar_inicio(lista_t *lista)
 {
-	void *dato = lista->inicio->dato;
-	nodo_t *nodo_aux = lista->inicio;
-	lista->inicio = nodo_aux->siguiente;
+	void *dato = lista->nodo_inicio->dato;
+	nodo_t *nodo_aux = lista->nodo_inicio;
+	lista->nodo_inicio = nodo_aux->siguiente_nodo;
 	free(nodo_aux);
 	if (lista->cantidad == 1) {
-		lista->final = NULL;
+		lista->nodo_final = NULL;
 	}
 	return dato;
 }
@@ -99,12 +99,12 @@ void *eliminar_inicio(lista_t *lista)
 void *eliminar_posicion(lista_t *lista, size_t posicion)
 {
 	nodo_t *nodo_anterior = obtener_nodo(lista, posicion - 1);
-	nodo_t *nodo_a_eliminar = nodo_anterior->siguiente;
+	nodo_t *nodo_a_eliminar = nodo_anterior->siguiente_nodo;
 	void *dato = nodo_a_eliminar->dato;
-	nodo_anterior->siguiente = nodo_a_eliminar->siguiente;
+	nodo_anterior->siguiente_nodo = nodo_a_eliminar->siguiente_nodo;
 	free(nodo_a_eliminar);
-	if (nodo_anterior->siguiente == NULL) {
-		lista->final = nodo_anterior;
+	if (nodo_anterior->siguiente_nodo == NULL) {
+		lista->nodo_final = nodo_anterior;
 	}
 	return dato;
 }
@@ -146,7 +146,7 @@ bool lista_esta_vacia(lista_t *lista)
 	if (!lista) {
 		return true;
 	}
-	return (lista_cantidad(lista) == 0);
+	return lista_cantidad(lista) == 0;
 }
 
 bool lista_insertar(lista_t *lista, void *dato, size_t posicion)
@@ -160,8 +160,8 @@ bool lista_insertar(lista_t *lista, void *dato, size_t posicion)
 	}
 	nodo_nuevo->dato = dato;
 	if (lista->cantidad == 0) {
-		lista->inicio = nodo_nuevo;
-		lista->final = nodo_nuevo;
+		lista->nodo_inicio = nodo_nuevo;
+		lista->nodo_final = nodo_nuevo;
 	} else if (posicion == 0) {
 		insertar_al_principio(lista, nodo_nuevo);
 	} else if (posicion == lista->cantidad) {
@@ -219,7 +219,7 @@ int lista_buscar(lista_t *lista, void *buscado,
 		return ERROR;
 	}
 	bool dato_encontrado = false;
-	nodo_t *nodo_actual = lista->inicio;
+	nodo_t *nodo_actual = lista->nodo_inicio;
 	int indice = ERROR;
 	int i = 0;
 	while ((nodo_actual) && (!dato_encontrado)) {
@@ -231,7 +231,7 @@ int lista_buscar(lista_t *lista, void *buscado,
 			}
 		}
 		i++;
-		nodo_actual = nodo_actual->siguiente;
+		nodo_actual = nodo_actual->siguiente_nodo;
 	}
 	return indice;
 }
@@ -243,10 +243,10 @@ size_t lista_iterar(lista_t *lista, bool (*f)(void *, void *), void *extra)
 	}
 	size_t contador = 0;
 	bool seguir_iterando = true;
-	nodo_t *nodo_actual = lista->inicio;
+	nodo_t *nodo_actual = lista->nodo_inicio;
 	while ((nodo_actual) && (seguir_iterando)) {
 		seguir_iterando = f(nodo_actual->dato, extra);
-		nodo_actual = nodo_actual->siguiente;
+		nodo_actual = nodo_actual->siguiente_nodo;
 		contador++;
 	}
 	return contador;
@@ -254,7 +254,17 @@ size_t lista_iterar(lista_t *lista, bool (*f)(void *, void *), void *extra)
 
 void lista_destruir(lista_t *lista)
 {
-	lista_destruir_todo(lista, NULL);
+	if (!lista) {
+		return;
+	}
+	nodo_t *nodo_actual = lista->nodo_inicio;
+	nodo_t *nodo_aux = lista->nodo_inicio;
+	while (nodo_actual) {
+		nodo_aux = nodo_actual;
+		nodo_actual = nodo_actual->siguiente_nodo;
+		free(nodo_aux);
+	}
+	free(lista);
 }
 
 void lista_destruir_todo(lista_t *lista, void (*destructor)(void *))
@@ -262,11 +272,11 @@ void lista_destruir_todo(lista_t *lista, void (*destructor)(void *))
 	if (!lista) {
 		return;
 	}
-	nodo_t *nodo_actual = lista->inicio;
-	nodo_t *nodo_aux = lista->inicio;
+	nodo_t *nodo_actual = lista->nodo_inicio;
+	nodo_t *nodo_aux = lista->nodo_inicio;
 	while (nodo_actual) {
 		nodo_aux = nodo_actual;
-		nodo_actual = nodo_actual->siguiente;
+		nodo_actual = nodo_actual->siguiente_nodo;
 		if (destructor != NULL) {
 			destructor(nodo_aux->dato);
 		}
@@ -284,7 +294,7 @@ lista_iterador_t *lista_iterador_crear(lista_t *lista)
 	if (!lista_iterador) {
 		return NULL;
 	}
-	lista_iterador->actual = lista->inicio;
+	lista_iterador->nodo_actual = lista->nodo_inicio;
 	return lista_iterador;
 }
 
@@ -293,23 +303,23 @@ bool lista_iterador_se_puede_iterar(lista_iterador_t *it)
 	if (!it) {
 		return false;
 	}
-	return (it->actual != NULL);
+	return (it->nodo_actual != NULL);
 }
 
 void lista_iterador_siguiente(lista_iterador_t *it)
 {
-	if ((!it) || (!it->actual)) {
+	if ((!it) || (!it->nodo_actual)) {
 		return;
 	}
-	it->actual = it->actual->siguiente;
+	it->nodo_actual = it->nodo_actual->siguiente_nodo;
 }
 
 void *lista_iterador_obtener_elemento(lista_iterador_t *it)
 {
-	if ((!it) || (!it->actual)) {
+	if ((!it) || (!it->nodo_actual)) {
 		return NULL;
 	}
-	return it->actual->dato;
+	return it->nodo_actual->dato;
 }
 
 void lista_iterador_destruir(lista_iterador_t *it)

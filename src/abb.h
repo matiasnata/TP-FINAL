@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
 typedef enum { INORDEN, PREORDEN, POSTORDEN } abb_recorrido;
 
 /**

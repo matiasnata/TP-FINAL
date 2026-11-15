@@ -1,9 +1,9 @@
 #include "tp1.h"
-#include "abb/abb.h"
-#include "leer_linea/leer_linea.h"
-#include "validadores/validadores.h"
-#include  <ctype.h>
-#include  <string.h>
+#include "abb.h"
+#include "leer_linea.h"
+#include "validadores.h"
+#include <ctype.h>
+#include <string.h>
 
 #define ERROR -1
 #define EXITO 0
@@ -16,14 +16,14 @@
 #define CHAR_RARO 'R'
 #define CHAR_LEGENDARIO 'L'
 
-struct tp1{
-    abb_t* pokemones;
+struct tp1 {
+	abb_t *pokemones;
 };
 
 struct buscador_orden {
-    size_t n_buscado;
-    size_t actual;
-    struct pokemon *encontrado;
+	size_t n_buscado;
+	size_t actual;
+	struct pokemon *encontrado;
 };
 
 /**
@@ -32,26 +32,23 @@ struct buscador_orden {
  * 
  * Compara dos cadenas carácter a carácter ignorando mayúsculas y minúsculas (case-insensitive).
  * 
- * Devuelve un entero < 0 si s1 es menor que s2, 0 si son iguales,
- * o un entero > 0 si s1 es mayor que s2.
+ * Devuelve un entero < 0 si nombre_1 es menor que nombre_2, 0 si son iguales,
+ * o un entero > 0 si nombre_1 es mayor que nombre_2.
  * 
  */
-int comparar_nombres(char *s1, char *s2)
+int comparar_nombres(char *nombre_1, char *nombre_2)
 {
-    unsigned char c1 = 0;
-    unsigned char c2 = 0;
-    while ((*s1 != CARACTER_NULO) && (*s2 != CARACTER_NULO)) {
-        c1 = (unsigned char)tolower((unsigned char)*s1);
-        c2 = (unsigned char)tolower((unsigned char)*s2);
-        if (c1 != c2) {
-            return ((int)c1 - (int)c2);
-        }
-        s1++;
-        s2++;
-    }
-    c1 = (unsigned char)tolower((unsigned char)*s1);
-    c2 = (unsigned char)tolower((unsigned char)*s2);
-    return ((int)c1 - (int)c2);
+	while ((*nombre_1 != CARACTER_NULO) && (*nombre_2 != CARACTER_NULO) &&
+	       (tolower((unsigned char)*nombre_1) ==
+		tolower((unsigned char)*nombre_2))) {
+		nombre_1++;
+		nombre_2++;
+	}
+	unsigned char caracter_1 =
+		(unsigned char)tolower((unsigned char)*nombre_1);
+	unsigned char caracter_2 =
+		(unsigned char)tolower((unsigned char)*nombre_2);
+	return ((int)caracter_1 - (int)caracter_2);
 }
 
 /**
@@ -62,11 +59,11 @@ int comparar_nombres(char *s1, char *s2)
  * Devuelve un entero < 0 si p1 es menor que p2, 0 si son iguales,
  * o un entero > 0 si p1 es mayor que p2.
  */
-int comparar_pokemones(void *p1, void *p2)
+int comparar_pokemones(void *elemento1, void *elemento2)
 {
-    struct pokemon* pokemon1 = (struct pokemon *)p1;
-    struct pokemon* pokemon2 = (struct pokemon *)p2;
-    return (comparar_nombres(pokemon1->nombre, pokemon2->nombre));
+	struct pokemon *pokemon1 = (struct pokemon *)elemento1;
+	struct pokemon *pokemon2 = (struct pokemon *)elemento2;
+	return (comparar_nombres(pokemon1->nombre, pokemon2->nombre));
 }
 
 /**
@@ -78,16 +75,17 @@ int comparar_pokemones(void *p1, void *p2)
  */
 bool escribir_pokemon_en_archivo(void *elemento, void *aux)
 {
-    struct pokemon *pokemon = (struct pokemon *)elemento;
-    FILE *archivo = (FILE *)aux;
-    char letra_rareza = CHAR_COMUN;
-    if (pokemon->rareza == RAREZA_RARO) {
-        letra_rareza = CHAR_RARO;
-    } else if (pokemon->rareza == RAREZA_LEGENDARIO) {
-        letra_rareza = CHAR_LEGENDARIO;
-    }
-    fprintf(archivo, FORMATO_ESCRITURA, pokemon->nombre, pokemon->velocidad, pokemon->peso, letra_rareza);
-    return true;
+	struct pokemon *pokemon = (struct pokemon *)elemento;
+	FILE *archivo = (FILE *)aux;
+	char letra_rareza = CHAR_COMUN;
+	if (pokemon->rareza == RAREZA_RARO) {
+		letra_rareza = CHAR_RARO;
+	} else if (pokemon->rareza == RAREZA_LEGENDARIO) {
+		letra_rareza = CHAR_LEGENDARIO;
+	}
+	fprintf(archivo, FORMATO_ESCRITURA, pokemon->nombre, pokemon->velocidad,
+		pokemon->peso, letra_rareza);
+	return true;
 }
 
 /**
@@ -103,37 +101,42 @@ int agregar_pokemon(tp1_t *tp1, char *nombre, int velocidad, float peso,
 		    enum rareza_pokemon rareza)
 {
 	char *nombre_copia = malloc(strlen(nombre) + 1);
-    if (!nombre_copia){
-        return ERROR;
-    }
-	strcpy(nombre_copia, nombre); 
-	struct pokemon* pokemon = malloc (sizeof(struct pokemon));
-    if (!pokemon){
-        free (nombre_copia);
-        return ERROR;
-    }
-    pokemon->nombre = nombre_copia;
-    pokemon->peso = peso;
-    pokemon->rareza = rareza;
-    pokemon->velocidad = velocidad;
-    if (!abb_insertar(tp1->pokemones,pokemon)){
-        free(nombre_copia);
-        free(pokemon);
-	    return ERROR;
-    }
+	if (!nombre_copia) {
+		return ERROR;
+	}
+	strcpy(nombre_copia, nombre);
+	struct pokemon *pokemon = malloc(sizeof(struct pokemon));
+	if (!pokemon) {
+		free(nombre_copia);
+		return ERROR;
+	}
+	pokemon->nombre = nombre_copia;
+	pokemon->peso = peso;
+	pokemon->rareza = rareza;
+	pokemon->velocidad = velocidad;
+	if (!abb_insertar(tp1->pokemones, pokemon)) {
+		free(nombre_copia);
+		free(pokemon);
+		return ERROR;
+	}
 	return EXITO;
 }
 
+/**
+ * Se asume que elemento y extra son punteros válidos.
+ *
+ * Devuelve false cuando encuentra el elemento buscado, o true para seguir iterando.
+ */
 bool buscar_enesimo(void *elemento, void *extra)
 {
-    struct buscador_orden *b = (struct buscador_orden *)extra;
+	struct buscador_orden *buscador = (struct buscador_orden *)extra;
 
-    if (b->actual == b->n_buscado) {
-        b->encontrado = (struct pokemon *)elemento;
-        return false;
-    }
-    b->actual++;
-    return true;
+	if (buscador->actual == buscador->n_buscado) {
+		buscador->encontrado = (struct pokemon *)elemento;
+		return false;
+	}
+	buscador->actual++;
+	return true;
 }
 
 /**
@@ -147,28 +150,28 @@ bool buscar_enesimo(void *elemento, void *extra)
  */
 bool separar_campos(char *linea, char **velocidad, char **peso, char **rareza)
 {
-    char *coma1 = strchr(linea, SEPARADOR);
-    if (!coma1) {
-        return false;
-    }
-    char *coma2 = strchr(coma1 + 1, SEPARADOR);
-    if (!coma2) {
-        return false;
-    }
-    char *coma3 = strchr(coma2 + 1, SEPARADOR);
-    if (!coma3) {
-        return false;
-    }
-    if (strchr(coma3 + 1, SEPARADOR) != NULL) {
-        return false;
-    }
-    *coma1 = CARACTER_NULO;
-    *coma2 = CARACTER_NULO;
-    *coma3 = CARACTER_NULO;
-    *velocidad = coma1 + 1;
-    *peso = coma2 + 1;
-    *rareza = coma3 + 1;
-    return true;
+	char *coma1 = strchr(linea, SEPARADOR);
+	if (!coma1) {
+		return false;
+	}
+	char *coma2 = strchr(coma1 + 1, SEPARADOR);
+	if (!coma2) {
+		return false;
+	}
+	char *coma3 = strchr(coma2 + 1, SEPARADOR);
+	if (!coma3) {
+		return false;
+	}
+	if (strchr(coma3 + 1, SEPARADOR) != NULL) {
+		return false;
+	}
+	*coma1 = CARACTER_NULO;
+	*coma2 = CARACTER_NULO;
+	*coma3 = CARACTER_NULO;
+	*velocidad = coma1 + 1;
+	*peso = coma2 + 1;
+	*rareza = coma3 + 1;
+	return true;
 }
 
 /**
@@ -181,26 +184,27 @@ bool separar_campos(char *linea, char **velocidad, char **peso, char **rareza)
  */
 int procesar_linea(char *linea, tp1_t *tp1)
 {
-    char *velocidad_str = NULL;
-    char *peso_str = NULL;
-    char *rareza_str = NULL;
-    if (!separar_campos(linea, &velocidad_str, &peso_str, &rareza_str)) {
-        return EXITO;
-    }
-    char *nombre = linea;
-    int vel = 0;
-    float peso_total = 0;
-    enum rareza_pokemon rareza = 0;
-    if (!nombre_valido(nombre) || tp1_buscar_pokemon(tp1, nombre) != NULL ||
-        !velocidad_valida(velocidad_str, &vel) ||
-        !peso_valido(peso_str, &peso_total) ||
-        !rareza_valida(rareza_str, &rareza)) {
-        return EXITO;
-    }
-    if (agregar_pokemon(tp1, nombre, vel, peso_total, rareza) != EXITO) {
-        return ERROR;
-    }
-    return EXITO;
+	char *velocidad_str = NULL;
+	char *peso_str = NULL;
+	char *rareza_str = NULL;
+	if (!separar_campos(linea, &velocidad_str, &peso_str, &rareza_str)) {
+		return EXITO;
+	}
+	char *nombre = linea;
+	int vel = 0;
+	float peso_total = 0;
+	enum rareza_pokemon rareza = 0;
+	if ((!nombre_valido(nombre)) ||
+	    (tp1_buscar_pokemon(tp1, nombre) != NULL) ||
+	    (!velocidad_valida(velocidad_str, &vel)) ||
+	    (!peso_valido(peso_str, &peso_total)) ||
+	    (!rareza_valida(rareza_str, &rareza))) {
+		return EXITO;
+	}
+	if (agregar_pokemon(tp1, nombre, vel, peso_total, rareza) != EXITO) {
+		return ERROR;
+	}
+	return EXITO;
 }
 
 /**
@@ -210,12 +214,12 @@ int procesar_linea(char *linea, tp1_t *tp1)
  */
 void destruir_pokemon(void *elemento)
 {
-    if (!elemento) {
-        return;
-    }
-    struct pokemon *pokemon = (struct pokemon *)elemento;
-    free(pokemon->nombre);
-    free(pokemon);
+	if (!elemento) {
+		return;
+	}
+	struct pokemon *pokemon = (struct pokemon *)elemento;
+	free(pokemon->nombre);
+	free(pokemon);
 }
 
 /**
@@ -229,13 +233,15 @@ void destruir_pokemon(void *elemento)
  */
 bool copiar_pokemon(void *elemento, void *aux)
 {
-    struct pokemon *pokemon = (struct pokemon *)elemento;
-    tp1_t *tp1_destino = (tp1_t *)aux;
-    if (tp1_buscar_pokemon(tp1_destino, pokemon->nombre) != NULL) {
-        return true;
-    }
-    int resultado = agregar_pokemon(tp1_destino, pokemon->nombre, pokemon->velocidad, pokemon->peso, pokemon->rareza);
-    return (resultado == EXITO);
+	struct pokemon *pokemon = (struct pokemon *)elemento;
+	tp1_t *tp1_destino = (tp1_t *)aux;
+	if (tp1_buscar_pokemon(tp1_destino, pokemon->nombre) != NULL) {
+		return true;
+	}
+	int resultado = agregar_pokemon(tp1_destino, pokemon->nombre,
+					pokemon->velocidad, pokemon->peso,
+					pokemon->rareza);
+	return (resultado == EXITO);
 }
 
 /**
@@ -248,8 +254,9 @@ bool copiar_pokemon(void *elemento, void *aux)
  */
 static bool copiar_todos_los_pokemones(tp1_t *destino, tp1_t *origen)
 {
-    size_t copiados = abb_con_cada_elemento(origen->pokemones, PREORDEN,copiar_pokemon, destino);
-    return (copiados == abb_tamanio(origen->pokemones));
+	size_t cantidad_copiados = abb_con_cada_elemento(
+		origen->pokemones, PREORDEN, copiar_pokemon, destino);
+	return (cantidad_copiados == abb_tamanio(origen->pokemones));
 }
 
 /**
@@ -260,122 +267,134 @@ static bool copiar_todos_los_pokemones(tp1_t *destino, tp1_t *origen)
  */
 tp1_t *tp1_crear()
 {
-    tp1_t *tp1 = calloc(1, sizeof(tp1_t));
-    if (!tp1) {
-        return NULL;
-    }
-    tp1->pokemones = abb_crear(comparar_pokemones);
-    if (!tp1->pokemones) {
-        free(tp1);
-        return NULL;
-    }
-    return tp1;
-}
-
-tp1_t *tp1_leer_archivo(const char *nombre){
-    if (!nombre){
-        return NULL;
-    }
-    FILE* archivo_pokemones = fopen(nombre, LECTURA);
-    if (!archivo_pokemones){
-        return NULL;
-    }
-    tp1_t *tp1 = tp1_crear();
-    if (!tp1) {
-        fclose(archivo_pokemones);
-        return NULL;
-    }
-    char *linea = leer_linea(archivo_pokemones);
-	while (linea != NULL) {
-        if (procesar_linea(linea,tp1) == ERROR){
-            free(linea);
-            fclose(archivo_pokemones);
-            tp1_destruir(tp1);
-            return NULL;
-        }
-		free(linea); 
-		linea = leer_linea(archivo_pokemones);
+	tp1_t *tp1 = malloc(sizeof(tp1_t));
+	if (!tp1) {
+		return NULL;
 	}
-	fclose(archivo_pokemones);
+	tp1->pokemones = abb_crear(comparar_pokemones);
+	if (!tp1->pokemones) {
+		free(tp1);
+		return NULL;
+	}
 	return tp1;
 }
 
-size_t tp1_cantidad(tp1_t *tp1){
-    if (!tp1){
-        return 0;
-    }
-    return (abb_tamanio(tp1->pokemones));
+tp1_t *tp1_leer_archivo(const char *nombre)
+{
+	if (!nombre) {
+		return NULL;
+	}
+	FILE *archivo_pokemones = fopen(nombre, LECTURA);
+	if (!archivo_pokemones) {
+		return NULL;
+	}
+	tp1_t *tp1 = tp1_crear();
+	if (!tp1) {
+		fclose(archivo_pokemones);
+		return NULL;
+	}
+	char *linea = leer_linea(archivo_pokemones);
+	bool error_memoria = false;
+	while ((linea != NULL) && (!error_memoria)) {
+		if (procesar_linea(linea, tp1) == ERROR) {
+			error_memoria = true;
+		}
+		free(linea);
+		if (!error_memoria) {
+			linea = leer_linea(archivo_pokemones);
+		}
+	}
+	fclose(archivo_pokemones);
+	if (error_memoria) {
+		tp1_destruir(tp1);
+		return NULL;
+	}
+	return tp1;
 }
 
-tp1_t *tp1_combinar(tp1_t *tp1_a, tp1_t *tp1_b){
-    if ((!tp1_a) || (!tp1_b)){
-        return NULL;
-    }
-    tp1_t *tp1_c = tp1_crear();
-    if (!tp1_c) {
-        return NULL;
-    }
-    if ((!copiar_todos_los_pokemones(tp1_c, tp1_a)) || (!copiar_todos_los_pokemones(tp1_c, tp1_b))) {
-        tp1_destruir(tp1_c);
-        return NULL;
-    }
-    return tp1_c;
+size_t tp1_cantidad(tp1_t *tp1)
+{
+	if (!tp1) {
+		return 0;
+	}
+	return (abb_tamanio(tp1->pokemones));
 }
 
-tp1_t *tp1_escribir_archivo(tp1_t *tp1, const char *nombre){
-    if ((!tp1) || (!nombre)) {
+tp1_t *tp1_combinar(tp1_t *tp1_a, tp1_t *tp1_b)
+{
+	if ((!tp1_a) || (!tp1_b)) {
+		return NULL;
+	}
+	tp1_t *tp1_combinado = tp1_crear();
+	if (!tp1_combinado) {
+		return NULL;
+	}
+	if ((!copiar_todos_los_pokemones(tp1_combinado, tp1_a)) ||
+	    (!copiar_todos_los_pokemones(tp1_combinado, tp1_b))) {
+		tp1_destruir(tp1_combinado);
+		return NULL;
+	}
+	return tp1_combinado;
+}
+
+tp1_t *tp1_escribir_archivo(tp1_t *tp1, const char *nombre)
+{
+	if ((!tp1) || (!nombre)) {
 		return NULL;
 	}
 	FILE *archivo = fopen(nombre, ESCRITURA);
 	if (!archivo) {
 		return NULL;
 	}
-    size_t pokemones_escritos = abb_con_cada_elemento(tp1->pokemones,INORDEN,escribir_pokemon_en_archivo,archivo);
-    fclose(archivo);
-    if (pokemones_escritos != abb_tamanio(tp1->pokemones)){
-        return NULL;
-    }
-    return tp1;
+	size_t pokemones_escritos = abb_con_cada_elemento(
+		tp1->pokemones, INORDEN, escribir_pokemon_en_archivo, archivo);
+	fclose(archivo);
+	if (pokemones_escritos != abb_tamanio(tp1->pokemones)) {
+		return NULL;
+	}
+	return tp1;
 }
 
-struct pokemon *tp1_buscar_pokemon(tp1_t *tp1, const char *nombre){
-    if ((!tp1) || (!nombre)){
-        return NULL;
-    } 
-    struct pokemon pokemon_aux = {0};
-    pokemon_aux.nombre = (char *)nombre;
-    return (abb_buscar(tp1->pokemones, &pokemon_aux));
+struct pokemon *tp1_buscar_pokemon(tp1_t *tp1, const char *nombre)
+{
+	if ((!tp1) || (!nombre)) {
+		return NULL;
+	}
+	struct pokemon pokemon_aux = { 0 };
+	pokemon_aux.nombre = (char *)nombre;
+	return (abb_buscar(tp1->pokemones, &pokemon_aux));
 }
 
-struct pokemon *tp1_buscar_orden(tp1_t *tp1, size_t n){ 
-    if (!tp1 || n >= tp1_cantidad(tp1)) {
-        return NULL;
-    }
-    struct buscador_orden b = {
-        .n_buscado = n,
-        .actual = 0,
-        .encontrado = NULL
-    };
+struct pokemon *tp1_buscar_orden(tp1_t *tp1, size_t n)
+{
+	if (!tp1 || n >= tp1_cantidad(tp1)) {
+		return NULL;
+	}
+	struct buscador_orden buscador = { .n_buscado = n,
+					   .actual = 0,
+					   .encontrado = NULL };
 
-    abb_con_cada_elemento(tp1->pokemones, INORDEN, buscar_enesimo, &b);
+	abb_con_cada_elemento(tp1->pokemones, INORDEN, buscar_enesimo,
+			      &buscador);
 
-    return b.encontrado;
+	return buscador.encontrado;
 }
 
-size_t tp1_iterar(tp1_t *tp1, bool (*f)(struct pokemon *, void *), void *extra){
-    if ((!tp1) || (!tp1->pokemones) || (!f)) {
-        return 0;
-    }
-    return (abb_con_cada_elemento(tp1->pokemones, INORDEN, (bool (*)(void *, void *))f, extra));
+size_t tp1_iterar(tp1_t *tp1, bool (*f)(struct pokemon *, void *), void *extra)
+{
+	if ((!tp1) || (!tp1->pokemones) || (!f)) {
+		return 0;
+	}
+	return (abb_con_cada_elemento(tp1->pokemones, INORDEN,
+				      (bool (*)(void *, void *))f, extra));
 }
 
 void *tp1_destruir(tp1_t *tp1)
 {
 	if (!tp1) {
 		return NULL;
-    }
-    abb_destruir_todo(tp1->pokemones,destruir_pokemon);
-    free(tp1);
-    return NULL;
+	}
+	abb_destruir_todo(tp1->pokemones, destruir_pokemon);
+	free(tp1);
+	return NULL;
 }
-

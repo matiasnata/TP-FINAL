@@ -18,7 +18,8 @@ typedef bool (*menu_accion_t)(void *contexto);
 /**
  * Devuelve true si se debe continuar con la iteración, false caso contrario.
  */
-typedef bool (*menu_iterador_t)(char clave, const char *descripcion, size_t indice, void *extra);
+typedef bool (*menu_iterador_t)(char clave, const char *descripcion,
+				size_t indice, void *extra);
 
 /**
  * Crea un menú vacío.
@@ -36,7 +37,8 @@ menu_t *menu_crear(void);
  * Devuelve true si la opción se agregó correctamente, o false si ocurrió un error
  *
  */
-bool menu_agregar_opcion(menu_t *menu, char clave, const char *descripcion, menu_accion_t accion);
+bool menu_agregar_opcion(menu_t *menu, char clave, const char *descripcion,
+			 menu_accion_t accion);
 
 /**
  * Ejecuta la acción vinculada al carácter clave dado.

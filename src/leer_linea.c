@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "leer_linea.h"
 
 #define ERROR -1
@@ -19,19 +20,28 @@ int leer_linea_ptr(char **ptr, size_t *tamanio, FILE *archivo)
 		return ERROR;
 	}
 	size_t tope = 0;
-	while ((caracter_leido != EOF) && (caracter_leido != SALTO_DE_LINEA)) {
+	bool error_memoria = false;
+	while ((caracter_leido != EOF) && (caracter_leido != SALTO_DE_LINEA) &&
+	       (!error_memoria)) {
 		if ((tope + ESPACIO_NULO) >= *tamanio) {
-			size_t nuevo_tamanio = (*tamanio) * (MULTIPLICADOR_TAMANIO);
+			size_t nuevo_tamanio =
+				(*tamanio) * (MULTIPLICADOR_TAMANIO);
 			char *ptr_aux = realloc(*ptr, nuevo_tamanio);
 			if (!ptr_aux) {
-				return ERROR;
+				error_memoria = true;
+			} else {
+				*ptr = ptr_aux;
+				*tamanio = nuevo_tamanio;
 			}
-			*ptr = ptr_aux;
-			*tamanio = nuevo_tamanio;
 		}
-		(*ptr)[tope] = (char)caracter_leido;
-		tope++;
-		caracter_leido = fgetc(archivo);
+		if (!error_memoria) {
+			(*ptr)[tope] = (char)caracter_leido;
+			tope++;
+			caracter_leido = fgetc(archivo);
+		}
+	}
+	if (error_memoria) {
+		return ERROR;
 	}
 	(*ptr)[tope] = CARACTER_NULO;
 	return (int)tope;
@@ -39,7 +49,7 @@ int leer_linea_ptr(char **ptr, size_t *tamanio, FILE *archivo)
 
 char *leer_linea(FILE *archivo)
 {
-	if (!archivo){
+	if (!archivo) {
 		return NULL;
 	}
 	size_t tamanio = TAMANIO_INICIAL;

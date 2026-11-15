@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1580" height="740" viewBox="0 0 1580 740" xmlns:c2pa="http://c2pa.org/manifest">
+<defs><marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffffff"/></marker><marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f5b942"/></marker></defs>
+<rect width="1580" height="740" fill="#0d0f12"/>
+<text x="170.0" y="50.0" font-size="26" fill="#4f8ef7" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">stack</text>
+<text x="950.0" y="50.0" font-size="26" fill="#34d399" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">heap</text>
+<line x1="300" y1="85" x2="300" y2="710" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="7 6"/>
+<rect x="60.0" y="603.0" width="170.0" height="64.0" rx="8" fill="#0d0f12" stroke="#ffffff" stroke-width="2"/>
+<text x="145.0" y="640.0" font-size="15" fill="#ffffff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">menu_t *menu</text>
+<rect x="330.0" y="590.0" width="200.0" height="60.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="430.0" y="609.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct menu</text>
+<line x1="330.0" y1="620.0" x2="530.0" y2="620.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="344.0" y="639.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">lista_t *opciones</text>
+<rect x="501.0" y="628.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="508.0" cy="635.0" r="2.4" fill="#ffffff"/>
+<path d="M230.0,635.0 L330.0,635.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="330.0" y="400.0" width="230.0" height="120.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="445.0" y="419.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct lista</text>
+<line x1="330.0" y1="430.0" x2="560.0" y2="430.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="344.0" y="449.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">nodo_t *inicio</text>
+<rect x="531.0" y="438.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="538.0" cy="445.0" r="2.4" fill="#ffffff"/>
+<line x1="330.0" y1="460.0" x2="560.0" y2="460.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="344.0" y="479.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">nodo_t *final</text>
+<rect x="531.0" y="468.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="538.0" cy="475.0" r="2.4" fill="#ffffff"/>
+<line x1="330.0" y1="490.0" x2="560.0" y2="490.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="344.0" y="509.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">size_t cantidad = 5</text>
+<path d="M515.0,635.0 L545.0,635.0 L545.0,520.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="330.0" y="210.0" width="190.0" height="90.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="425.0" y="229.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct nodo</text>
+<line x1="330.0" y1="240.0" x2="520.0" y2="240.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="344.0" y="259.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">void *dato</text>
+<rect x="491.0" y="248.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="498.0" cy="255.0" r="2.4" fill="#ffffff"/>
+<line x1="330.0" y1="270.0" x2="520.0" y2="270.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="344.0" y="289.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">struct nodo *siguiente</text>
+<rect x="491.0" y="278.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="498.0" cy="285.0" r="2.4" fill="#ffffff"/>
+<rect x="433.0" y="95.0" width="130.0" height="44.0" rx="5" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="498.0" y="110.0" font-size="10" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct opcion</text>
+<text x="498.0" y="128.0" font-size="12.5" fill="#ffffff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">clave = 'J'</text>
+<path d="M498.0,248.0 L498.0,139.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="565.0" y="210.0" width="190.0" height="90.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="660.0" y="229.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct nodo</text>
+<line x1="565.0" y1="240.0" x2="755.0" y2="240.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="579.0" y="259.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">void *dato</text>
+<rect x="726.0" y="248.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="733.0" cy="255.0" r="2.4" fill="#ffffff"/>
+<line x1="565.0" y1="270.0" x2="755.0" y2="270.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="579.0" y="289.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">struct nodo *siguiente</text>
+<rect x="726.0" y="278.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="733.0" cy="285.0" r="2.4" fill="#ffffff"/>
+<rect x="668.0" y="95.0" width="130.0" height="44.0" rx="5" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="733.0" y="110.0" font-size="10" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct opcion</text>
+<text x="733.0" y="128.0" font-size="12.5" fill="#ffffff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">clave = 'S'</text>
+<path d="M733.0,248.0 L733.0,139.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="800.0" y="210.0" width="190.0" height="90.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="895.0" y="229.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct nodo</text>
+<line x1="800.0" y1="240.0" x2="990.0" y2="240.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="814.0" y="259.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">void *dato</text>
+<rect x="961.0" y="248.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="968.0" cy="255.0" r="2.4" fill="#ffffff"/>
+<line x1="800.0" y1="270.0" x2="990.0" y2="270.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="814.0" y="289.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">struct nodo *siguiente</text>
+<rect x="961.0" y="278.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="968.0" cy="285.0" r="2.4" fill="#ffffff"/>
+<rect x="903.0" y="95.0" width="130.0" height="44.0" rx="5" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="968.0" y="110.0" font-size="10" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct opcion</text>
+<text x="968.0" y="128.0" font-size="12.5" fill="#ffffff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">clave = 'M'</text>
+<path d="M968.0,248.0 L968.0,139.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="1035.0" y="210.0" width="190.0" height="90.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="1130.0" y="229.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct nodo</text>
+<line x1="1035.0" y1="240.0" x2="1225.0" y2="240.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1049.0" y="259.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">void *dato</text>
+<rect x="1196.0" y="248.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1203.0" cy="255.0" r="2.4" fill="#ffffff"/>
+<line x1="1035.0" y1="270.0" x2="1225.0" y2="270.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1049.0" y="289.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">struct nodo *siguiente</text>
+<rect x="1196.0" y="278.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1203.0" cy="285.0" r="2.4" fill="#ffffff"/>
+<rect x="1138.0" y="95.0" width="130.0" height="44.0" rx="5" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="1203.0" y="110.0" font-size="10" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct opcion</text>
+<text x="1203.0" y="128.0" font-size="12.5" fill="#ffffff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">clave = 'I'</text>
+<path d="M1203.0,248.0 L1203.0,139.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="1270.0" y="210.0" width="190.0" height="90.0" rx="6" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="1365.0" y="229.0" font-size="11.5" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct nodo</text>
+<line x1="1270.0" y1="240.0" x2="1460.0" y2="240.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1284.0" y="259.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">void *dato</text>
+<rect x="1431.0" y="248.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1438.0" cy="255.0" r="2.4" fill="#ffffff"/>
+<line x1="1270.0" y1="270.0" x2="1460.0" y2="270.0" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1284.0" y="289.4" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">struct nodo *siguiente</text>
+<rect x="1431.0" y="278.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1438.0" cy="285.0" r="2.4" fill="#ffffff"/>
+<rect x="1373.0" y="95.0" width="130.0" height="44.0" rx="5" fill="#0d0f12" stroke="#ffffff" stroke-width="1.8"/>
+<text x="1438.0" y="110.0" font-size="10" fill="#9aa0a6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic">struct opcion</text>
+<text x="1438.0" y="128.0" font-size="12.5" fill="#ffffff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold">clave = 'Q'</text>
+<path d="M1438.0,248.0 L1438.0,139.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<path d="M505.0,285.0 L565.0,285.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<path d="M740.0,285.0 L800.0,285.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<path d="M975.0,285.0 L1035.0,285.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<path d="M1210.0,285.0 L1270.0,285.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<path d="M1445.0,285.0 L1481.0,285.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<text x="1487.0" y="289.0" font-size="11.5" fill="#7f9fd4" text-anchor="start" font-family="Arial, Helvetica, sans-serif">NULL</text>
+<path d="M545.0,445.0 L585.0,445.0 L585.0,340.0 L425.0,340.0 L425.0,300.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<path d="M545.0,475.0 L615.0,475.0 L615.0,320.0 L1365.0,320.0 L1365.0,300.0" fill="none" stroke="#ffffff" stroke-width="1.5" marker-end="url(#aw)"/>
+<rect x="60.0" y="693.0" width="14" height="14" fill="#0d0f12" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="67.0" cy="700.0" r="2.4" fill="#ffffff"/>
+<text x="84.0" y="704.0" font-size="12.5" fill="#ffffff" text-anchor="start" font-family="Arial, Helvetica, sans-serif">= puntero</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTplMWVjMWJkNS0xZjc1LTRiOTQtYjU4MS05MDk1MGYyN2M2NWUAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaLkGRgsUwOgoc3SOaNxDKlYAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoyMTE2OGY5MC02MTcyLTRiNzAtYWYyZC0xZjI2NDU2YWFjZDVscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoEQOR5B8kOkLdqfjhFVfEmQAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggS3aDP4I+hKG5iCb5P0xMJE7S7t5gL4EGU9INY2gCES+kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaIoJlKs97wWouvutZzgM/y0AAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYILq4vwFS8fc2JjN7lLUA7G6ADVYSGqK5gaOtbaB7bN5IZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GTFpZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmUxZWMxYmQ1LTFmNzUtNGI5NC1iNTgxLTkwOTUwZjI3YzY1ZS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmQ0OTM1ZDhlLWZjYjctNGQzMy1hODRlLWIwYTdkOTBiNDJkZnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCBLdoM/gj6EobmIJvk/TEwkTtLu3mAvgQZT0g1jaAIRL6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggs8Bzxo95QCRmj3AMlEj78ELOTkGmGtLwgm4bWhEzoNuiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggiznJnt5Ij/feJPfpB3yRjO6PnKVUIj96fMbava5ZJQR0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQJk0H5ADYsQGsIxWsLk5CcXQyDSZgWTu4Lq0CplXjrNsfZUBpOiqE78TrdYrefHvJ1XD40As6j/MFO1VP+5YGvg=</c2pa:manifest></metadata></svg>
