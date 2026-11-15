@@ -81,7 +81,7 @@ bool agregar_al_resumen(struct pokemon *pokemon, void *extra)
 
 struct resumen_pokedex calcular_resumen_pokedex(tp1_t *pokedex)
 {
-	struct resumen_pokedex resumen = {0};
+	struct resumen_pokedex resumen = { 0 };
 	if (pokedex != NULL) {
 		tp1_iterar(pokedex, agregar_al_resumen, &resumen);
 	}

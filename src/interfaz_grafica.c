@@ -144,7 +144,7 @@ struct contexto_dibujo {
  * Devuelve true si el texto se dibujó correctamente, o false en caso contrario.
  */
 bool dibujar_linea(pantalla_t *pantalla, size_t linea, unsigned color,
-			  const char *texto)
+		   const char *texto)
 {
 	int posicion_y =
 		POSICION_Y_PRIMERA_LINEA + (int)linea * SEPARACION_LINEAS;
@@ -160,8 +160,8 @@ bool dibujar_linea(pantalla_t *pantalla, size_t linea, unsigned color,
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
 bool dibujar_texto_con_numero(pantalla_t *pantalla, size_t linea,
-				     unsigned color, const char *formato,
-				     size_t numero)
+			      unsigned color, const char *formato,
+			      size_t numero)
 {
 	int largo = snprintf(NULL, 0, formato, numero);
 	if (largo < 0) {
@@ -186,8 +186,8 @@ bool dibujar_texto_con_numero(pantalla_t *pantalla, size_t linea,
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
 bool dibujar_texto_con_decimal(pantalla_t *pantalla, size_t linea,
-				      unsigned color, const char *formato,
-				      double numero)
+			       unsigned color, const char *formato,
+			       double numero)
 {
 	int largo = snprintf(NULL, 0, formato, numero);
 	if (largo < 0) {
@@ -212,8 +212,8 @@ bool dibujar_texto_con_decimal(pantalla_t *pantalla, size_t linea,
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
 bool dibujar_texto_con_cadena(pantalla_t *pantalla, size_t linea,
-				     unsigned color, const char *formato,
-				     const char *cadena)
+			      unsigned color, const char *formato,
+			      const char *cadena)
 {
 	int largo = snprintf(NULL, 0, formato, cadena);
 	if (largo < 0) {
@@ -238,8 +238,8 @@ bool dibujar_texto_con_cadena(pantalla_t *pantalla, size_t linea,
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
 bool dibujar_cadena_con_numero(pantalla_t *pantalla, size_t linea,
-				      unsigned color, const char *formato,
-				      const char *cadena, int numero)
+			       unsigned color, const char *formato,
+			       const char *cadena, int numero)
 {
 	int largo = snprintf(NULL, 0, formato, cadena, numero);
 	if (largo < 0) {
@@ -264,8 +264,8 @@ bool dibujar_cadena_con_numero(pantalla_t *pantalla, size_t linea,
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
 bool dibujar_cadena_con_decimal(pantalla_t *pantalla, size_t linea,
-				       unsigned color, const char *formato,
-				       const char *cadena, double numero)
+				unsigned color, const char *formato,
+				const char *cadena, double numero)
 {
 	int largo = snprintf(NULL, 0, formato, cadena, numero);
 	if (largo < 0) {
@@ -290,9 +290,8 @@ bool dibujar_cadena_con_decimal(pantalla_t *pantalla, size_t linea,
  *
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
-bool dibujar_dos_numeros(pantalla_t *pantalla, size_t linea,
-				unsigned color, const char *formato,
-				size_t primero, int segundo)
+bool dibujar_dos_numeros(pantalla_t *pantalla, size_t linea, unsigned color,
+			 const char *formato, size_t primero, int segundo)
 {
 	int largo = snprintf(NULL, 0, formato, primero, segundo);
 	if (largo < 0) {
@@ -316,9 +315,9 @@ bool dibujar_dos_numeros(pantalla_t *pantalla, size_t linea,
  *
  * Devuelve true si el texto se dibujó correctamente, o false ante error de memoria o formato.
  */
-bool dibujar_dos_cadenas(pantalla_t *pantalla, size_t linea,
-				unsigned color, const char *formato,
-				const char *primera, const char *segunda)
+bool dibujar_dos_cadenas(pantalla_t *pantalla, size_t linea, unsigned color,
+			 const char *formato, const char *primera,
+			 const char *segunda)
 {
 	int largo = snprintf(NULL, 0, formato, primera, segunda);
 	if (largo < 0) {
@@ -419,7 +418,7 @@ void agregar_caracter(struct juego *juego, char caracter)
  * para búsqueda de pokémon por nombre dependiendo de la letra que ingreso el usuario).
  */
 void frame_entrada(const struct entrada *entrada, pantalla_t *pantalla,
-			  struct juego *juego)
+		   struct juego *juego)
 {
 	bool es_semilla = (juego->tipo_entrada == SEMILLA);
 	const char *etiqueta_solicitud = "Ingrese el nombre del pokemon:";
@@ -453,7 +452,7 @@ void frame_entrada(const struct entrada *entrada, pantalla_t *pantalla,
  * Dibuja en pantalla las estadísticas generales de la Pokédex calculadas en resumen.
  */
 void dibujar_informacion(pantalla_t *pantalla,
-				const struct resumen_pokedex *resumen)
+			 const struct resumen_pokedex *resumen)
 {
 	dibujar_texto_con_numero(pantalla, 0, BLANCO, "Total: %zu",
 				 resumen->total);
@@ -489,7 +488,7 @@ void dibujar_informacion(pantalla_t *pantalla,
  * Muestra los atributos del pokémon encontrado, o un mensaje de error si no se encuentra el pokemon en la pokedex.
  */
 void dibujar_pokemon_encontrado(pantalla_t *pantalla,
-				       const struct pokemon *pokemon)
+				const struct pokemon *pokemon)
 {
 	if (pokemon == NULL) {
 		dibujar_linea(pantalla, 0, BLANCO, "Pokemon no encontrado");
@@ -508,8 +507,7 @@ void dibujar_pokemon_encontrado(pantalla_t *pantalla,
 /**
  * Construye y devuelve una estructura pregunta con su enunciado, etiqueta y respuesta correcta.
  */
-struct pregunta armar_pregunta(char *texto, char *etiqueta,
-				      int respuesta)
+struct pregunta armar_pregunta(char *texto, char *etiqueta, int respuesta)
 {
 	struct pregunta pregunta;
 	pregunta.texto = texto;
@@ -524,8 +522,7 @@ struct pregunta armar_pregunta(char *texto, char *etiqueta,
  * Obtiene la pregunta correspondiente al índice indicado (0 a 5) junto con su
  * respuesta.
  */
-struct pregunta obtener_pregunta(const struct juego *juego,
-					size_t numero)
+struct pregunta obtener_pregunta(const struct juego *juego, size_t numero)
 {
 	const struct estadisticas *estadisticas = &juego->estadisticas;
 	int total = estadisticas->comunes + estadisticas->raros +
@@ -559,8 +556,7 @@ struct pregunta obtener_pregunta(const struct juego *juego,
  *
  * Devuelve la k-ésima pregunta de la partida actual.
  */
-struct pregunta pregunta_de_la_partida(const struct juego *juego,
-					      size_t k)
+struct pregunta pregunta_de_la_partida(const struct juego *juego, size_t k)
 {
 	return obtener_pregunta(juego, (juego->pregunta_inicial +
 					k * juego->salto_entre_preguntas) %
@@ -573,7 +569,7 @@ struct pregunta pregunta_de_la_partida(const struct juego *juego,
  * Dibuja la pregunta actual con sus opciones y evalúa la respuesta ingresada por el jugador.
  */
 void frame_pregunta(const struct entrada *entrada, pantalla_t *pantalla,
-			   struct juego *juego)
+		    struct juego *juego)
 {
 	struct pregunta pregunta =
 		pregunta_de_la_partida(juego, juego->pregunta);
@@ -627,7 +623,7 @@ void dibujar_resultados(pantalla_t *pantalla, const struct juego *juego)
  * Incrementa los contadores del struct estadisticas, de rareza y dirección de desplazamiento según el pokémon recibido.
  */
 void registrar_en_estadisticas(struct estadisticas *estadisticas,
-				      const struct pokemon_en_pantalla *pokemon)
+			       const struct pokemon_en_pantalla *pokemon)
 {
 	if (pokemon->pokemon->rareza == RAREZA_COMUN) {
 		estadisticas->comunes++;
@@ -778,8 +774,10 @@ void iniciar_partida(struct juego *juego, char opcion_dificultad)
  */
 bool ya_cruzo(const struct pokemon_en_pantalla *pokemon)
 {
-	bool salio_derecha = ((pokemon->direccion == DIRECCION_DERECHA) && (pokemon->posicion_x >= PANTALLA_ANCHO_PX));
-	bool salio_izquierda = ((pokemon->direccion == DIRECCION_IZQUIERDA) && (pokemon->posicion_x <= -SPRITE_PX));
+	bool salio_derecha = ((pokemon->direccion == DIRECCION_DERECHA) &&
+			      (pokemon->posicion_x >= PANTALLA_ANCHO_PX));
+	bool salio_izquierda = ((pokemon->direccion == DIRECCION_IZQUIERDA) &&
+				(pokemon->posicion_x <= -SPRITE_PX));
 	return ((salio_derecha) || (salio_izquierda));
 }
 
@@ -789,7 +787,7 @@ bool ya_cruzo(const struct pokemon_en_pantalla *pokemon)
  * Dibuja el sprite animado del pokémon con movimiento en zigzag.
  */
 void dibujar_pokemon(pantalla_t *pantalla, unsigned tick,
-			    const struct pokemon_en_pantalla *pokemon)
+		     const struct pokemon_en_pantalla *pokemon)
 {
 	unsigned fase =
 		(tick / DIVISOR_ZIGZAG + pokemon->orden * DESFASE_ZIGZAG) %
@@ -825,10 +823,12 @@ bool actualizar_y_dibujar(void *elemento, void *extra)
 {
 	struct pokemon_en_pantalla *pokemon = elemento;
 	struct contexto_dibujo *contexto = extra;
-	bool visible = ((pokemon->posicion_x > -SPRITE_PX) && (pokemon->posicion_x < PANTALLA_ANCHO_PX));
+	bool visible = ((pokemon->posicion_x > -SPRITE_PX) &&
+			(pokemon->posicion_x < PANTALLA_ANCHO_PX));
 
 	pokemon->posicion_x += pokemon->direccion * pokemon->paso;
-	contexto->quedan_por_cruzar = ((contexto->quedan_por_cruzar) || (!ya_cruzo(pokemon)));
+	contexto->quedan_por_cruzar =
+		((contexto->quedan_por_cruzar) || (!ya_cruzo(pokemon)));
 	if (visible) {
 		dibujar_pokemon(contexto->pantalla, contexto->tick, pokemon);
 	}
@@ -893,8 +893,8 @@ void dibujar_introduccion(pantalla_t *pantalla)
  * Renderiza las pantallas informativas estáticas (estadísticas, resultado de búsqueda,
  * resultados finales, falta de pokemones o introducción) y espera ENTER para avanzar.
  */
-void frame_informativa(const struct entrada *entrada,
-			      pantalla_t *pantalla, struct juego *juego)
+void frame_informativa(const struct entrada *entrada, pantalla_t *pantalla,
+		       struct juego *juego)
 {
 	char *indicacion = "ENTER: volver al menu";
 	if (juego->modo == MODO_INFORMACION) {
@@ -927,8 +927,8 @@ void frame_informativa(const struct entrada *entrada,
  *
  * Dibuja las dificultades del juego disponibles e inicia la partida al luego de que el usuario ingrese una respuesta.
  */
-void frame_dificultad(const struct entrada *entrada,
-			     pantalla_t *pantalla, struct juego *juego)
+void frame_dificultad(const struct entrada *entrada, pantalla_t *pantalla,
+		      struct juego *juego)
 {
 	dibujar_linea(pantalla, 0, AMARILLO, "Elegi la dificultad:");
 	dibujar_linea(pantalla, 2, BLANCO, "1 - Dificultad facil");
@@ -1026,7 +1026,7 @@ static bool accion_salir(void *contexto)
  * Devuelve true si la opción se dibujó correctamente, o false en caso contrario.
  */
 bool dibujar_opcion(char clave, const char *descripcion, size_t indice,
-			   void *pantalla)
+		    void *pantalla)
 {
 	int largo = snprintf(NULL, 0, "%c - %s", clave, descripcion);
 	if (largo < 0) {
@@ -1052,7 +1052,7 @@ bool dibujar_opcion(char clave, const char *descripcion, size_t indice,
  * Devuelve 0 para continuar ejecutando o 1 si se seleccionó salir.
  */
 int frame_menu(const struct entrada *entrada, pantalla_t *pantalla,
-		      struct juego *juego)
+	       struct juego *juego)
 {
 	int resultado = 0;
 	dibujar_linea(pantalla, LINEA_TITULO_MENU, AMARILLO, "DEMO POKEMON");
@@ -1073,7 +1073,7 @@ int frame_menu(const struct entrada *entrada, pantalla_t *pantalla,
  * Devuelve 0 para continuar la ejecución o 1 para finalizar el bucle gráfico.
  */
 int procesar_frame(const struct entrada *entrada, pantalla_t *pantalla,
-			  void *contexto)
+		   void *contexto)
 {
 	struct juego *juego = contexto;
 	int resultado = 0;
@@ -1139,8 +1139,16 @@ struct juego *crear_juego(tp1_t *pokedex, menu_t *menu)
  */
 bool registrar_opciones_menu(menu_t *menu)
 {
-	return ((menu_agregar_opcion(menu, CLAVE_JUGAR, DESC_JUGAR,accion_jugar)) && (menu_agregar_opcion(menu, CLAVE_SEMILLA, DESC_SEMILLA,accion_semilla)) &&
-	       (menu_agregar_opcion(menu, CLAVE_MOSTRAR, DESC_MOSTRAR,accion_mostrar)) && (menu_agregar_opcion(menu, CLAVE_INFO, DESC_INFO, accion_info)) && (menu_agregar_opcion(menu, CLAVE_SALIR, DESC_SALIR, accion_salir)));
+	return ((menu_agregar_opcion(menu, CLAVE_JUGAR, DESC_JUGAR,
+				     accion_jugar)) &&
+		(menu_agregar_opcion(menu, CLAVE_SEMILLA, DESC_SEMILLA,
+				     accion_semilla)) &&
+		(menu_agregar_opcion(menu, CLAVE_MOSTRAR, DESC_MOSTRAR,
+				     accion_mostrar)) &&
+		(menu_agregar_opcion(menu, CLAVE_INFO, DESC_INFO,
+				     accion_info)) &&
+		(menu_agregar_opcion(menu, CLAVE_SALIR, DESC_SALIR,
+				     accion_salir)));
 }
 
 bool ejecutar_modo_grafico(tp1_t *pokedex, menu_t *menu, const char *puerto)
